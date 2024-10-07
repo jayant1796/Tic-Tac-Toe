@@ -1,7 +1,10 @@
 // Tic-Tac-Toe logic
 const cells = document.querySelectorAll('.cell');
 const statusText = document.getElementById('status');
+const dialog = document.getElementById('dialog');
+const dialogMessage = document.getElementById('dialog-message');
 const restartBtn = document.getElementById('restart');
+const exitBtn = document.getElementById('exit');
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
@@ -21,8 +24,8 @@ initializeGame();
 
 function initializeGame() {
     cells.forEach(cell => cell.addEventListener("click", cellClicked));
-    restartBtn.addEventListener("click", restartGame);
     running = true;
+    dialog.style.display = 'none'; // Hide dialog initially
 }
 
 function cellClicked() {
@@ -61,6 +64,7 @@ function checkWinner() {
 
         if (cellA == cellB && cellB == cellC) {
             roundWon = true;
+            highlightWinningCells(condition);
             break;
         }
     }
@@ -68,18 +72,43 @@ function checkWinner() {
     if (roundWon) {
         statusText.textContent = `Player ${currentPlayer} wins!`;
         running = false;
+        showDialog(`Player ${currentPlayer} wins! Do you want to restart the game?`);
     } else if (!board.includes("")) {
         statusText.textContent = `It's a tie!`;
         running = false;
+        showDialog(`It's a tie! Do you want to restart the game?`);
     } else {
         changePlayer();
     }
+}
+
+function highlightWinningCells(condition) {
+    condition.forEach(index => {
+        cells[index].classList.add("winner-animation");
+    });
+}
+
+function showDialog(message) {
+    dialogMessage.textContent = message;
+    dialog.style.display = 'block'; // Show the dialog
 }
 
 function restartGame() {
     currentPlayer = "X";
     board = ["", "", "", "", "", "", "", "", ""];
     statusText.textContent = `Player X's turn`;
-    cells.forEach(cell => cell.textContent = "");
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.classList.remove("winner-animation"); // Remove animations
+    });
     running = true;
+    dialog.style.display = 'none'; // Hide the dialog
 }
+
+function exitGame() {
+    window.close(); // Close the browser window (works only in some browsers)
+}
+
+// Button event listeners
+restartBtn.addEventListener('click', restartGame);
+exitBtn.addEventListener('click', exitGame);
