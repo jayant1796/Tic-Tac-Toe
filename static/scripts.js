@@ -1,4 +1,4 @@
-// Tic-Tac-Toe logic
+
 const cells = document.querySelectorAll('.cell');
 const statusText = document.getElementById('status');
 const dialog = document.getElementById('dialog');
@@ -109,6 +109,6 @@ function exitGame() {
     window.close(); // Close the browser window (works only in some browsers)
 }
 
-// Button event listeners
+
 restartBtn.addEventListener('click', restartGame);
 exitBtn.addEventListener('click', exitGame);
