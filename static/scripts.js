@@ -25,7 +25,7 @@ initializeGame();
 function initializeGame() {
     cells.forEach(cell => cell.addEventListener("click", cellClicked));
     running = true;
-    dialog.style.display = 'none'; // Hide dialog initially
+    dialog.style.display = 'none'; 
 }
 
 function cellClicked() {
@@ -90,7 +90,7 @@ function highlightWinningCells(condition) {
 
 function showDialog(message) {
     dialogMessage.textContent = message;
-    dialog.style.display = 'block'; // Show the dialog
+    dialog.style.display = 'block'; 
 }
 
 function restartGame() {
@@ -99,15 +99,14 @@ function restartGame() {
     statusText.textContent = `Player X's turn`;
     cells.forEach(cell => {
         cell.textContent = "";
-        cell.classList.remove("winner-animation"); // Remove animations
+        cell.classList.remove("winner-animation"); 
     });
     running = true;
-    dialog.style.display = 'none'; // Hide the dialog
+    dialog.style.display = 'none';
 }
 
 function exitGame() {
-    window.close(); // Close the browser window (works only in some browsers)
-}
+    window.close();
 
 
 restartBtn.addEventListener('click', restartGame);
